@@ -3,12 +3,17 @@ package dev.cserby.tentsandtrees
 import oscar.cp._
 import oscar.cp.{CPIntVar, Constraint}
 
-class Table(private val table: Array[Array[Option[CPIntVar]]], val rows: Int, val cols: Int)(implicit cpStore: CPStore) {
+class Table(
+             private val table: Array[Array[Option[CPIntVar]]],
+             private val rowSums: Array[Int],
+             private val colSums: Array[Int],
+             private val rows: Int,
+             private val cols: Int)(implicit cpStore: CPStore) {
   private def get(row: Int, col: Int): Option[CPIntVar] = {
     getRow(row).flatMap(_.lift(col).flatten)
   }
 
-  private lazy val transpose: Table = new Table(table.transpose, rows, cols)
+  private lazy val transpose: Table = new Table(table.transpose, rowSums, colSums, rows, cols)
 
   private def getRow(row: Int): Option[Array[Option[CPIntVar]]] = {
     table.lift(row)
@@ -85,6 +90,22 @@ class Table(private val table: Array[Array[Option[CPIntVar]]], val rows: Int, va
     }.flatten.map(_ === 1)
   }
 
+  def rowSumConstraints: Seq[Constraint] = {
+    (0 until rows).map { row =>
+      (0 until cols).map { col =>
+        tentAt(row, col)
+      }.foldRight[CPIntVar](CPIntVar(0)){_ + _} === rowSums(row)
+    }
+  }
+
+  def colSumConstraints: Seq[Constraint] = {
+    (0 until cols).map { col =>
+      (0 until rows).map { row =>
+        tentAt(row, col)
+      }.foldRight[CPIntVar](CPIntVar(0)){_ + _} === colSums(col)
+    }
+  }
+
   override def toString: String = {
     table.map{ row =>
       row.map{
@@ -96,13 +117,13 @@ class Table(private val table: Array[Array[Option[CPIntVar]]], val rows: Int, va
 }
 
 object Table {
-  def apply(inputTable: InputTable)(implicit cpStore: CPStore): Table = {
+  def apply(inputTable: InputTable, rowSums: Array[Int], colSums: Array[Int])(implicit cpStore: CPStore): Table = {
     new Table(
       inputTable.map { row: Array[Char] =>
         row.map {
           case 't' => Some(CPIntVar(1 to 4))
           case _ => None
         }
-      }, inputTable.length, inputTable.head.length)
+      }, rowSums, colSums, inputTable.length, inputTable.head.length)
   }
 }

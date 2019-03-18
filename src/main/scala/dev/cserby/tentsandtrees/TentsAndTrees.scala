@@ -9,14 +9,17 @@ object TentsAndTrees extends CPModel with App {
     Array(' ', ' ', 't')
   )
 
+  val rowSums: Array[Int] = Array(0, 2, 0)
+  val colSums: Array[Int] = Array(1, 0, 1)
+
   def addConstraints(table: Table): Unit = {
     add(table.edgeConstraints)
     add(table.tentConstraints)
-    //add(table.columnSumConstraints)
-    //add(table.rowSumConstraints)
+    add(table.colSumConstraints)
+    add(table.rowSumConstraints)
   }
 
-  val table: Table = Table(inputTable)
+  val table: Table = Table(inputTable, rowSums, colSums)
   addConstraints(table)
   search {
     binaryFirstFail(table.allTrees)
