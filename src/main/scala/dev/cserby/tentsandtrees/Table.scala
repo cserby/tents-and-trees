@@ -87,7 +87,7 @@ class Table(
           })
         }
       }
-    }.flatten.map(_ === 1)
+    }.flatten.map(_.constraintTrue)
   }
 
   def rowSumConstraints: Seq[Constraint] = {
