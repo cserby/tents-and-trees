@@ -16,27 +16,28 @@ object TentsAndTrees extends CPModel with App {
   val colSums: Array[Int] = Array(4, 5, 2, 6, 2, 5, 4, 5, 2, 5, 4, 3, 5, 4, 5, 3, 3, 4, 3, 6)
 
   val inputTable: Array[Array[Char]] = Array(
-    " t   tt    tt   t   ".toCharArray,
-    "tt            t    t".toCharArray,
-    "     t  t         t ".toCharArray,
-    "   t    t tt       t".toCharArray,
-    " t    t       t  t  ".toCharArray,
-    "  t       t t t     ".toCharArray,
-    "          t   tt   t".toCharArray,
-    " t    t         t   ".toCharArray,
-    " t  t       t      t".toCharArray,
-    "    t  t  tt  t     ".toCharArray,
-    "             tt t   ".toCharArray,
-    "      tt          t ".toCharArray,
-    " t  t    t          ".toCharArray,
-    " t  t               ".toCharArray,
-    " t   t     t  t t   ".toCharArray,
-    " t     t t          ".toCharArray,
-    "         t  tt   t t".toCharArray,
-    " tt    t            ".toCharArray,
-    "     tt   t t t t  t".toCharArray,
-    "  t     t      t t  ".toCharArray
-  )
+    " t   tt    tt   t   ",
+    "tt            t    t",
+    "     t  t         t ",
+    "   t    t tt       t",
+    " t    t       t  t  ",
+    "  t       t t t     ",
+    "          t   tt   t",
+    " t    t         t   ",
+    " t  t       t      t",
+    "    t  t  tt  t     ",
+    "             tt t   ",
+    "      tt          t ",
+    " t  t    t          ",
+    " t  t               ",
+    " t   t     t  t t   ",
+    " t     t t          ",
+    "         t  tt   t t",
+    " tt    t            ",
+    "     tt   t t t t  t",
+    "  t     t      t t  "
+  ).map(_.toCharArray)
+
   def addConstraints(table: Table): Unit = {
     add(table.edgeConstraints)
     add(table.tentConstraints)
