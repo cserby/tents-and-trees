@@ -12,6 +12,8 @@ object TentsAndTrees extends CPModel with App {
   def addConstraints(table: Table): Unit = {
     add(table.edgeConstraints)
     add(table.tentConstraints)
+    //add(table.columnSumConstraints)
+    //add(table.rowSumConstraints)
   }
 
   val table: Table = Table(inputTable)
