@@ -1,8 +1,6 @@
 package dev.cserby.tentsandtrees
 
-import oscar.cp.{CPIntVar, CPModel, Constraint, add, binaryFirstFail, search, start}
-
-object TentsAndTrees extends CPModel with App {
+object TentsAndTrees extends App {
 /*  val inputTable: Array[Array[Char]] = Array(
     Array('t', ' ', ' '),
     Array(' ', ' ', ' '),
@@ -38,20 +36,5 @@ object TentsAndTrees extends CPModel with App {
     "  t     t      t t  "
   ).map(_.toCharArray)
 
-  def addConstraints(table: Table): Unit = {
-    add(table.edgeConstraints)
-    add(table.tentConstraints)
-    add(table.colSumConstraints)
-    add(table.rowSumConstraints)
-  }
-
-  val table: Table = Table(inputTable, rowSums, colSums)
-  addConstraints(table)
-  search {
-    binaryFirstFail(table.allTrees)
-  } onSolution {
-    println(s"Solution found:\n$table")
-  }
-
-  println(start())
+  println(TentsAndTreesPuzzle(inputTable, rowSums, colSums).solve)
 }
