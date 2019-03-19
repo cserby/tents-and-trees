@@ -40,10 +40,34 @@ case class TentsAndTreesPuzzle(
   }
 
   private def edgeConstraints: Seq[Constraint] = {
-    table.getRow(0).map{ _.flatMap { _.map { _ !== 4 }}}.getOrElse(Array.empty) ++
-    table.getRow(rowSums.length - 1).map{ _.flatMap { _.map { _ !== 2 }}}.getOrElse(Array.empty) ++
-    table.getCol(0).map{ _.flatMap { _.map { _ !== 3 }}}.getOrElse(Array.empty) ++
-    table.getCol(colSums.length - 1).map{ _.flatMap { _.map { _ !== 1 }}}.getOrElse(Array.empty)
+    (for {
+      row <- table.getRow(0).toSeq
+      treeO <- row
+      tree <- treeO
+    } yield {
+      tree !== 4
+    }) ++
+    (for {
+      row <- table.getRow(rowSums.length - 1).toSeq
+      treeO <- row
+      tree <- treeO
+    } yield {
+      tree !== 2
+    }) ++
+    (for {
+      row <- table.getCol(0).toSeq
+      treeO <- row
+      tree <- treeO
+    } yield {
+      tree !== 3
+    }) ++
+    (for {
+      row <- table.getCol(colSums.length - 1).toSeq
+      treeO <- row
+      tree <- treeO
+    } yield {
+      tree !== 1
+    })
   }
 
   // || | | | | ||
