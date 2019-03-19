@@ -96,29 +96,37 @@ case class TentsAndTreesPuzzle(
           (for {
             row1 <- row - 1 to row + 1
             col1 <- col to col + 2
-            if row != row1 && col != col1
+            if !(row == row1 && col == col1)
+            if !(row1 == row && col1 == col + 1) //the tent itself
           } yield {
+//            println(s"If ($row, $col) = 1, there's no tent at ($row1, $col1)")
             (tree ?=== 1) ==> !tentAt(row1, col1)
           }) ++
           (for {
             row1 <- row to row + 2
             col1 <- col - 1 to col + 1
-            if row != row1 && col != col1
+            if !(row == row1 && col == col1)
+            if !(row1 == row + 1 && col1 == col) //the tent itself
           } yield {
+//            println(s"If ($row, $col) = 2, there's no tent at ($row1, $col1)")
             (tree ?=== 2) ==> !tentAt(row1, col1)
           }) ++
           (for {
             row1 <- row - 1 to row + 1
             col1 <- col - 2 to col
-            if row != row1 && col != col1
+            if !(row == row1 && col == col1)
+            if !(row1 == row && col1 == col - 1) //the tent itself
           } yield {
+//            println(s"If ($row, $col) = 3, there's no tent at ($row1, $col1)")
             (tree ?=== 3) ==> !tentAt(row1, col1)
           }) ++
           (for {
             row1 <- row - 2 to row
             col1 <- col - 1 to col + 1
-            if row != row1 && col != col1
+            if !(row == row1 && col == col1)
+            if !(row1 == row - 1 && col1 == col) //the tent itself
           } yield {
+//            println(s"If ($row, $col) = 4, there's no tent at ($row1, $col1)")
             (tree ?=== 4) ==> !tentAt(row1, col1)
           })
         }

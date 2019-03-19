@@ -61,18 +61,5 @@ class AcceptanceTests extends FunSpec with Matchers {
         Array(4, 5, 2, 6, 2, 5, 4, 5, 2, 5, 4, 3, 5, 4, 5, 3, 3, 4, 3, 6)
       ).solve)
     }
-
-    it("tent conflict debug") {
-      println(TentsAndTreesPuzzle(
-        Array(
-          "   t   t",
-          "        ",
-          "    t t ",
-          "t  t   t"
-        ).map(_.toCharArray),
-        Array(0, 1, 3, 1),
-        Array(1, 0, 1, 1, 0, 1, 0, 3)
-      ).solve)
-    }
   }
 }
