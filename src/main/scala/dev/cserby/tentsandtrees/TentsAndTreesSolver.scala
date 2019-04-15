@@ -23,11 +23,11 @@ object TentsAndTreesSolver {
         binaryFirstFail(allTrees)
       } onSolution {
         solutionsAccumulator.append(
-          TentsAndTreesSolution(table.contents.map{ row =>
+          TentsAndTreesSolution(Matrix[Option[Int]](table.contents.map{ row =>
             row.map{ cell =>
               cell.map(_.value)
             }
-          }))
+          })))
       }
 
       def solutions: (SearchStatistics, Seq[TentsAndTreesSolution]) = {
