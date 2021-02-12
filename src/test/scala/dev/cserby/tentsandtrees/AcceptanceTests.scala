@@ -201,5 +201,40 @@ class AcceptanceTests extends FunSpec with Matchers {
         colSums = Array(4, 4, 3, 5, 1, 5, 2, 3, 4, 2, 3, 4, 2, 5, 3, 5, 3, 5)
       )
     }
+
+    def dailyTentsTableToInputTable(input: String): Array[Array[Char]] = {
+      def dailyTentsTableToInputTable(input: Array[Char]): Array[Array[Char]] = {
+        def splitPer(a: Array[Char], n: Integer, acc: Array[Array[Char]]): Array[Array[Char]] =
+          a.splitAt(n) match {
+            case (Array(), _) => acc
+            case (h, t) => splitPer(t, n, acc :+ h.map{
+              case '1' => 't'
+              case '2' => 'T'
+              case _ => ' '
+            })
+          }
+
+        def tableSize = math.sqrt(input.length).toInt
+        splitPer(input, tableSize, new Array[Array[Char]](0))
+      }
+
+      dailyTentsTableToInputTable(input.toCharArray())
+    }
+
+    it("BrainBashers - 2021 Feb 12 - 20x20") {
+      tentsAndTreesTest(
+        inputTable = dailyTentsTableToInputTable("0001012020001202021202120000100210010100000000000210120212000200002100021011000201020001200000202101021100010002100000011000120200000212020220211000012001001100000020012000021020000000002101021010001202120000020000202100000100000001000001022120002121020200020110002100000001021000000100001120001000022002000020002020200110001200010110001012200210021202120012011000101000100012010202102021202002100200"),
+        rowSums = "63444263435172262727".toCharArray().map(_.asDigit),
+        colSums = "45253252633617354608".toCharArray().map(_.asDigit)
+      )
+    }
+
+    it("BrainBashers - 2021 Feb 12 - 16 x 16 Medium") {
+      tentsAndTreesTest(
+        inputTable = dailyTentsTableToInputTable("0212020210100210000101000020000202120001001021010100120200200120020000000001200001020210012001012001001200000202101202000120000002000102000000020100021112000201210000000000010001212020020212002100001001000112000002121012120012000000020000000002121001012012"),
+        rowSums = "5234234333162424".toCharArray().map(_.asDigit),
+        colSums = "3515171503423515".toCharArray().map(_.asDigit)
+      )
+    }
   }
 }
