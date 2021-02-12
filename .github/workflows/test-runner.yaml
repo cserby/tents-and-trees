@@ -15,4 +15,4 @@ jobs:
         run: docker build . -t tents-and-trees
 
       - name: Test
-        run: docker run --rm -it tents-and-trees
+        run: docker run --rm tents-and-trees
