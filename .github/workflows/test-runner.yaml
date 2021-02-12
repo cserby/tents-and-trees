@@ -1,0 +1,18 @@
+name: Test-Runner
+
+on: workflow_dispatch
+
+jobs:
+  run-tests:
+    name: Run the tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: docker build . -t tents-and-trees
+
+      - name: Test
+        run: docker run --rm -it tents-and-trees
