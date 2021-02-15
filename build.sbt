@@ -15,3 +15,5 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % 
 libraryDependencies += "oscar" %% "oscar-cp" % "4.0.0" withSources()
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+
+libraryDependencies += "com.lihaoyi" %% "upickle" % "0.9.5"
