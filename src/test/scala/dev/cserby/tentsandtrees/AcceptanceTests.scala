@@ -3,6 +3,7 @@ package dev.cserby.tentsandtrees
 import org.scalactic.source.Position
 import org.scalatest.{FunSpec, Matchers}
 import oscar.algo.search.SearchStatistics
+import scala.io.Source
 
 
 class AcceptanceTests extends FunSpec with Matchers {
@@ -233,6 +234,12 @@ class AcceptanceTests extends FunSpec with Matchers {
           brainBashersRowSums = "5234234333162424",
           brainBashersColSums = "3515171503423515"
         )
+      )
+    }
+
+    it("TentsAndTrees - 22x22 -B") {
+      tentsAndTreesTest(
+        upickle.default.read[TentsAndTreesPuzzle](Source.fromResource("tentsAndTrees_22_B.json").mkString)
       )
     }
   }
